@@ -1,7 +1,7 @@
-import { Children } from "react"
+import { Children } from "react";
 
 const EachUtils = ({ of, render }) => {
-    return Children.toArray(of.map((item, index) => render(item, index)))
-}
+    return Children.toArray(of.map((item, index) => render(item, index)));
+};
 
-export default EachUtils
+export default EachUtils;
