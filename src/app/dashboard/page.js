@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { HiHome } from 'react-icons/hi';
 import { IoPizza } from "react-icons/io5";
-import { FaCalendarDay, FaHeart, FaLongArrowAltRight, FaPizzaSlice, FaDice, FaStar } from "react-icons/fa";
-import { IoIosCard } from "react-icons/io";
+import { FaCalendarDay, FaHeart, FaLongArrowAltRight, FaPizzaSlice, FaDice, FaStar, FaUser } from "react-icons/fa";
+import { IoIosCard, IoIosPin } from "react-icons/io";
 import { GiFrenchFries, GiNoodles, GiBarbecue, GiCakeSlice } from "react-icons/gi";
 import Image from 'next/image';
 import Select from 'react-select';
 import data from '../utils/data';
 import EachUtils from '../utils/EachUtils';
+import useStore from '../store/useStore';
 
 const options = [
     { value: 'price', label: 'Price' },
@@ -22,6 +23,7 @@ function Dashboard() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isMounted, setIsMounted] = useState(false);
+    const { user } = useStore();
 
     useEffect(() => setIsMounted(true), []);
 
@@ -207,8 +209,34 @@ function Dashboard() {
             </main>
 
             {/* Right Sidebar */}
-            <aside className="w-96 h-screen bg-white flex flex-col items-center p-4 shadow-lg">
-                {/* Additional Sidebar Content */}
+            <aside className="w-96 h-screen bg-white p-4 shadow-lg">
+                <div className='flex justify-between'>
+                    {console.log(user)}
+                    <div className='flex items-center'>
+                        <FaUser className='text-[#f97777] text-lg' />
+                        <p className='ms-2'>{user.username ?? "-"}</p>
+                    </div>
+                    <div className='flex items-center'>
+                        <IoIosPin className='text-[#f97777] text-lg' />
+                        <p className='ms-2'>{user.address ?? "-"}</p>
+                    </div>
+                </div>
+                <div className='divider'></div>
+                <div className='flex flex-col'>
+                    <p className='font-bold text-lg'>My Order</p>
+                    <button
+                        type="submit"
+                        className="w-full py-3 mt-2 bg-[#f97777] text-white rounded-lg font-semibold text-lg shadow-md hover:bg-[#f97777] transition duration-300"
+                    >
+                        Submit order
+                    </button>
+                    <button
+                        type="submit"
+                        className="w-full py-3 mt-2 bg-[#f0f5f8] text-black rounded-lg font-semibold text-lg shadow-md hover:bg-black hover:text-white transition duration-300"
+                    >
+                        -
+                    </button>
+                </div>
             </aside>
         </div >
     );
